@@ -1,26 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import { connect } from 'react-redux'
+import action from './store/action'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  asyncAdd = () => {
+    this.props.asyncIncrement(this.props.number + 1)
+  }
+
+  render() {
+    return (
+      <>
+        <div>
+          {this.props.number}
+        </div>
+        <button onClick={this.asyncAdd}>点击</button>
+      </>
+    );
+  }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return state
+}
+
+export default connect(mapStateToProps, action)(App);
